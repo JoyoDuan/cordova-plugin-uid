@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-uid",
+  "version": "0.0.1",
+  "description": "获取设备唯一标识",
+  "cordova": {
+    "id": "cordova-plugin-uid",
+    "platforms": []
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoyoDuan/cordova-plugin-uid.git"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "JoyoDuan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoyoDuan/cordova-plugin-uid/issues"
+  },
+  "homepage": "https://github.com/JoyoDuan/cordova-plugin-uid#readme"
+}

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-uid" version="0.0.1"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <name>UID</name>
+    <author email="JoyoDuan@163.com" href="">JoyoDuan</author>
+    <description>A cordova plugin, a JS version of UID SDK</description>
+    <license>MIT</license>
+    <keywords>cordova,uid,joyo,JoyoDuan</keywords>
+    <repo>https://github.com/JoyoDuan/cordova-plugin-uid.git</repo>
+    <issue>https://github.com/JoyoDuan/cordova-plugin-uid/issues</issue>
+
+    <!-- 对外js调用，用于require name一般对应js对用native的类名-->
+    <js-module name="UID" src="www/uid.js">
+        <!-- 对js开放调用的声明 -->
+        <clobbers target="UID" />
+    </js-module>
+
+    <!-- 对外js调用，用于require name一般对应js对用native的类名-->
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="UID">
+                <param name="android-package" value="com.joyo.cordova.uid.UID" />
+            </feature>
+        </config-file>
+        
+		<config-file target="AndroidManifest.xml" parent="/*">
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		</config-file>
+        <source-file src="src/android/UID.java" target-dir="src/com/joyo/cordova/uid" />
+        <source-file src="src/android/UIDUtils.java" target-dir="src/com/joyo/cordova/uid" />
+    </platform>
+
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="cordova-plugin-uid">
+                <param name="ios-package" value="cordova-plugin-uid" />
+            </feature>
+        </config-file>
+        <source-file src="src/ios/cordova-plugin-uid.m" />
+    </platform>
+</plugin>
