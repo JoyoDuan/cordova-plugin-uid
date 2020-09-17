@@ -25,17 +25,6 @@ import org.json.JSONObject;
 public class UID extends CordovaPlugin {
     Context context = null;
 
-    public static String uuid; // Device UUID
-    public static String imei; // Device IMEI
-    public static String imsi; // Device IMSI
-    public static String iccid; // Sim IMSI
-    public static String mac; // MAC address
-
-    public UID() {
-
-    }
-
-
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
@@ -46,19 +35,14 @@ public class UID extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        UID.imei = getIMEI(context);
-        UID.uuid = getUUID(context);
-        UID.imsi = getIMSI(context);
-        UID.iccid = getICCID(context);
-        UID.mac = getMAC(context);
-
         if (action.equals("getUID")) {
             JSONObject result = new JSONObject();
-            result.put("UUID", UID.uuid);
-            result.put("IMEI", UID.imei);
-            result.put("IMSI", UID.imsi);
-            result.put("ICCID", UID.iccid);
-            result.put("MAC", UID.mac);
+            result.put("IMEI", getIMEI(context));
+            // Android10已经不允许获取硬件唯一标识
+//            result.put("UUID", getUUID(context));
+//            result.put("IMSI", getIMSI(context));
+//            result.put("ICCID", getICCID(context));
+//            result.put("MAC", getMAC(context));
 
             // 返回结果给Cordova
             callbackContext.success(result);
@@ -74,8 +58,13 @@ public class UID extends CordovaPlugin {
      * @return uuid
      */
     public String getUUID(Context context) {
-        String uuid = Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        return uuid;
+        try {
+            String uuid = Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            return uuid;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
@@ -90,39 +79,54 @@ public class UID extends CordovaPlugin {
 
 
     public String getIMSI(Context context) {
-        final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (mTelephony == null) {
+        try {
+            final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (mTelephony == null) {
+                return null;
+            }
+
+            @SuppressLint({"MissingPermission", "HardwareIds"})
+            String imsi = mTelephony.getSubscriberId();
+            return imsi;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-
-        @SuppressLint({"MissingPermission", "HardwareIds"})
-        String imsi = mTelephony.getSubscriberId();
-        return imsi;
     }
 
 
     public String getICCID(Context context) {
-        final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (mTelephony == null) {
+        try {
+            final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (mTelephony == null) {
+                return null;
+            }
+
+            @SuppressLint({"MissingPermission", "HardwareIds"})
+            String iccid = mTelephony.getSimSerialNumber();
+            return iccid;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-
-        @SuppressLint({"MissingPermission", "HardwareIds"})
-        String iccid = mTelephony.getSimSerialNumber();
-        return iccid;
     }
 
 
     public String getMAC(Context context) {
-        final WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager == null) {
+        try {
+            final WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (wifiManager == null) {
+                return null;
+            }
+            @SuppressLint("MissingPermission")
+            final WifiInfo wInfo = wifiManager.getConnectionInfo();
+
+            @SuppressLint("HardwareIds")
+            String mac = wInfo.getMacAddress();
+            return mac;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-        @SuppressLint("MissingPermission")
-        final WifiInfo wInfo = wifiManager.getConnectionInfo();
-
-        @SuppressLint("HardwareIds")
-        String mac = wInfo.getMacAddress();
-        return mac;
     }
 }

@@ -1,8 +1,9 @@
 var exec = require('cordova/exec');
 
 
-module.exports = {
-    getUID: function(successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'UID', 'getUID', []);
-    }
+function UID() {}
+
+UID.prototype.getUID = function(successCallback, errorCallback) {
+    exec(successCallback, errorCallback, 'UID', 'getUID', []);
 };
+module.exports = new UID();

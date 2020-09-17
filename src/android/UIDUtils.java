@@ -70,7 +70,7 @@ final class UIDUtils {
         String uuid = UUID.randomUUID().toString().replace("-", "");
 
         // Android Q
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             Uri externalContentUri = MediaStore.Downloads.EXTERNAL_CONTENT_URI;
             ContentResolver contentResolver = context.getContentResolver();
             String[] projection = new String[]{
