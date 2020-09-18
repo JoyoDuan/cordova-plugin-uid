@@ -31,7 +31,7 @@ import java.util.UUID;
  *
  * Created By JoyoDuan On 2020-09-17
  */
-final class UIDUtils {
+public class UIDUtils {
     private static final String TAG = UIDUtils.class.getSimpleName();
 
     private static final String TEMP_DIR = "system_config";
@@ -73,9 +73,12 @@ final class UIDUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             Uri externalContentUri = MediaStore.Downloads.EXTERNAL_CONTENT_URI;
             ContentResolver contentResolver = context.getContentResolver();
+            // 返回的字段
             String[] projection = new String[]{
                     MediaStore.Downloads._ID
             };
+
+            // 相当于where条件
             String selection = MediaStore.Downloads.TITLE + "=?";
             String[] args = new String[]{
                     TEMP_FILE_NAME

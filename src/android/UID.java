@@ -27,10 +27,10 @@ public class UID extends CordovaPlugin {
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-
         // 上下文
         context = cordova.getActivity().getApplicationContext();
+
+        super.initialize(cordova, webView);
     }
 
     @Override
