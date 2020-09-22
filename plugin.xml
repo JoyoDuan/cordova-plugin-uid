@@ -34,13 +34,16 @@
         <source-file src="src/android/UID.java" target-dir="src/com/joyo/cordova/uid" />
         <source-file src="src/android/UIDUtils.java" target-dir="src/com/joyo/cordova/uid" />
     </platform>
-
+    
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
-            <feature name="cordova-plugin-uid">
-                <param name="ios-package" value="cordova-plugin-uid" />
+            <feature name="KeychainUUID">
+                <param name="ios-package" value="CDVKeychainUUID" />
             </feature>
         </config-file>
-        <source-file src="src/ios/cordova-plugin-uid.m" />
+        <header-file src="src/ios/CDVKeychainUUID.h" />
+        <source-file src="src/ios/CDVKeychainUUID.m" />
+            <header-file src="src/ios/KeychainHelper.h" />
+        <source-file src="src/ios/KeychainHelper.m" />
     </platform>
 </plugin>
