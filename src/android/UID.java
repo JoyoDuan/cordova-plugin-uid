@@ -58,76 +58,76 @@ public class UID extends CordovaPlugin {
      *
      * @return uuid
      */
-    public String getUUID(Context context) {
-        try {
-            String uuid = Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-            return uuid;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    /**
-     * 获取设备IMEI，Android Q获取不到，使用UUID存储磁盘代替
-     *
-     * @return IMEI
-     */
-    public String getIMEI(Context context) {
-        return UIDUtils.getDeviceId(context);
-    }
-
-
-    public String getIMSI(Context context) {
-        try {
-            final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (mTelephony == null) {
-                return null;
-            }
-
-            @SuppressLint({"MissingPermission", "HardwareIds"})
-            String imsi = mTelephony.getSubscriberId();
-            return imsi;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    public String getICCID(Context context) {
-        try {
-            final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (mTelephony == null) {
-                return null;
-            }
-
-            @SuppressLint({"MissingPermission", "HardwareIds"})
-            String iccid = mTelephony.getSimSerialNumber();
-            return iccid;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    public String getMAC(Context context) {
-        try {
-            final WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            if (wifiManager == null) {
-                return null;
-            }
-            @SuppressLint("MissingPermission")
-            final WifiInfo wInfo = wifiManager.getConnectionInfo();
-
-            @SuppressLint("HardwareIds")
-            String mac = wInfo.getMacAddress();
-            return mac;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    public String getUUID(Context context) {
+//        try {
+//            String uuid = Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+//            return uuid;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//
+//    /**
+//     * 获取设备IMEI，Android Q获取不到，使用UUID存储磁盘代替
+//     *
+//     * @return IMEI
+//     */
+//    public String getIMEI(Context context) {
+//        return UIDUtils.getDeviceId(context);
+//    }
+//
+//
+//    public String getIMSI(Context context) {
+//        try {
+//            final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//            if (mTelephony == null) {
+//                return null;
+//            }
+//
+//            @SuppressLint({"MissingPermission", "HardwareIds"})
+//            String imsi = mTelephony.getSubscriberId();
+//            return imsi;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//
+//    public String getICCID(Context context) {
+//        try {
+//            final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//            if (mTelephony == null) {
+//                return null;
+//            }
+//
+//            @SuppressLint({"MissingPermission", "HardwareIds"})
+//            String iccid = mTelephony.getSimSerialNumber();
+//            return iccid;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//
+//    public String getMAC(Context context) {
+//        try {
+//            final WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//            if (wifiManager == null) {
+//                return null;
+//            }
+//            @SuppressLint("MissingPermission")
+//            final WifiInfo wInfo = wifiManager.getConnectionInfo();
+//
+//            @SuppressLint("HardwareIds")
+//            String mac = wInfo.getMacAddress();
+//            return mac;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }
