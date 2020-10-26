@@ -11,13 +11,13 @@ UID.prototype.getUID = function(successCallback, errorCallback) {
 // ios
 UID.prototype.getDeviceID = function (success, error, args) {
     if (args === undefined) {
-        args = {}
+        args = {};
     }
     cordova.exec(success, error, 'KeychainUUID', 'getDeviceID', [args]);
 };
 UID.prototype.deleteDeviceID = function (success, error, args) {
     if (args === undefined) {
-        args = {}
+        args = {};
     }
     cordova.exec(success, error, 'KeychainUUID', 'deleteDeviceID', [args]);
 };
