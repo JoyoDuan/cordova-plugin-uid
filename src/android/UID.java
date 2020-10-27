@@ -37,7 +37,7 @@ public class UID extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("getUID")) {
             JSONObject result = new JSONObject();
-            result.put("UID", UIDUtils.getUID());
+            result.put("UID", UIDUtils.getDeviceId(context));
 //            result.put("IMEI", getIMEI(context));
             // Android10已经不允许获取硬件唯一标识
 //            result.put("UUID", getUUID(context));
